@@ -6,16 +6,11 @@ module SessionsHelper
       session[:session_token] = user.session_token
     end
 
-    # 永続化セッションのためにユーザーをデータベースに記憶する
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
-    remember_digest
-  end
-
-  # セッションハイジャック防止のためにセッショントークンを返す
-  def session_token
-    remember_digest || remember
+   # ユーザーを永続的セッションに保存する
+  def remember(user)
+    user.remember
+    cookies.permanent.encrypted[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
   end
 
   def current_user
