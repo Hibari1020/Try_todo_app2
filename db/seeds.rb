@@ -2,7 +2,8 @@
 User.create!(name:  "Hibari",
     email: "hibari@railstutorial.org",
     password:              "1010yoko",
-    password_confirmation: "1010yoko")
+    password_confirmation: "1010yoko",
+    admin: true)
 
 # サンプルユーザー
 User.create!(name:  "Makiko",
