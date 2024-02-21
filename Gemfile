@@ -5,6 +5,8 @@ ruby "3.2.3"
 
 gem "rails",           "7.0.4.3"
 gem "bcrypt",          "3.1.18"
+gem "will_paginate",           "3.3.1"
+gem "bootstrap-will_paginate", "1.0.0"
 gem "sassc-rails",     "2.1.2"
 gem "sprockets-rails", "3.4.2"
 gem "importmap-rails", "1.1.5"
