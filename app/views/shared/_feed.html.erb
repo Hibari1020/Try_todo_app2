@@ -1,0 +1,9 @@
+<% if @feed_items.any? %>
+  <ol class="microposts">
+    <% @feed_items.each do |feed_item| %>
+      <li>
+        <%= render feed_item %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>
