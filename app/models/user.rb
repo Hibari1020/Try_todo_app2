@@ -46,7 +46,11 @@ class User < ApplicationRecord
   end
 
   def feed
-    Micropost.where("user_id = ?", id)
+    Micropost.where("user_id = ?", id).where(done: false)
+  end
+
+  def done_feed
+    Micropost.where("user_id = ?", id).where(done: true)
   end
 
 end

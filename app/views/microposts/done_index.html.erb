@@ -1,0 +1,10 @@
+<h3>Done list</h3>
+<% if @done_feed_items.any? %>
+  <ol class="microposts">
+    <% @done_feed_items.each do |done_feed_item| %>
+      <li>
+        <%= render done_feed_item %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>
