@@ -62,19 +62,6 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "try_todo_app2_production"
 
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  host = 'https://todo-app2-7f2d.onrender.com'
-  config.action_mailer.default_url_options = { host: host }
-  ActionMailer::Base.smtp_settings = {
-    :port           => 587,
-    :address        => 'smtp.mailgun.org',
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => host,
-    :authentication => :plain,
-  }
-
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
