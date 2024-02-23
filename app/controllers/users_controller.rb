@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.save
       reset_session
       log_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to the Todo App!"
       redirect_to @user
     else
       render 'new', status: :unprocessable_entity
