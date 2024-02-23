@@ -56,15 +56,17 @@ class User < ApplicationRecord
   def feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id).where(done: false)
+
+    Micropost.where("(user_id IN (#{following_ids}) AND shared = :true AND done = :false)
+                     OR (user_id = :user_id AND done = :false)", user_id: id, true: true, false: false)
   end
 
   def done_feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id).where(true)
+
+    Micropost.where("(user_id IN (#{following_ids}) AND shared = :true AND done = :true)
+                     OR (user_id = :user_id AND done = :true)", user_id: id, true: true)
   end
 
   # ユーザーをフォローする
