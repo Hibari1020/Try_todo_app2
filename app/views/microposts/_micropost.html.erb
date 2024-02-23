@@ -5,10 +5,25 @@
   <span class="timestamp">
     (Posted <%= time_ago_in_words(micropost.created_at) %> ago.)
   </span>
-  <% if micropost.done? %>
+  <% if current_user.id == micropost.user_id %>
+    <% if micropost.done? %>
     <span class="not_donebutton"><%= button_to "未完了", update_not_done_micropost_path(micropost), method: :post %><span>
-  <% else %>
+    <% else %>
     <span class="donebutton"><%= button_to "完了", update_done_micropost_path(micropost), method: :post %></span>
+      <% if !micropost.shared? %>
+      <span class="share_button"><%= button_to "共有する", update_share_micropost_path(micropost), method: :post %><span>
+      <% else %>
+      <span class="not_share_button"><%= button_to "共有解除", update_not_share_micropost_path(micropost), method: :post %><span>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if micropost.shared? && current_user.following.include?(micropost.user) %>
+    <% if micropost.done? %>
+    <span class="not_donebutton"><%= button_to "未完了", update_not_done_micropost_path(micropost), method: :post %><span>
+    <% else %>
+    <span class="donebutton"><%= button_to "完了", update_done_micropost_path(micropost), method: :post %></span>
+    <% end %>
   <% end %>
 </li>
 

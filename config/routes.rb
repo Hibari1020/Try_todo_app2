@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     member do
       post 'update_done'
       post 'update_not_done'
+      post 'update_share'
+      post 'update_not_share'
     end
   end
   get "/microposts_done_list", to: "microposts#done_index", as: "done_index"
