@@ -19,3 +19,11 @@ User.create!(name:  "Hitoshi",
     email: "hitoshi@railstutorial.org",
     password:              "1010hito",
     password_confirmation: "1010hito")
+
+# ユーザーフォローのリレーションシップを作成する
+users = User.all
+user  = users.first
+following = users[2..3]
+followers = users[2..3]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

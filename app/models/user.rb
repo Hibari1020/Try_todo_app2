@@ -8,6 +8,7 @@ class User < ApplicationRecord
                                    dependent:   :destroy
     has_many :following, through: :active_relationships,  source: :followed
     has_many :followers, through: :passive_relationships, source: :follower
+    attr_accessor :remember_token
     before_save { self.email = email.downcase }
     validates :name,  presence: true, length: { maximum: 50 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -53,11 +54,17 @@ class User < ApplicationRecord
   end
 
   def feed
-    Micropost.where("user_id = ?", id).where(done: false)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id).where(done: false)
   end
 
   def done_feed
-    Micropost.where("user_id = ?", id).where(done: true)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id).where(true)
   end
 
   # ユーザーをフォローする
